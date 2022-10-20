@@ -1,31 +1,32 @@
 module.exports = {
   siteMetadata: {
-    title: `jblog`,
+    title: `Hoon's J-blog`,
     siteUrl: `https://www.yourdomain.tld`
   },
-  plugins: [{
-    resolve: 'gatsby-plugin-google-analytics',
-    options: {
-      "trackingId": "temp"
-    }
-  }, "gatsby-plugin-image", "gatsby-plugin-sitemap", {
-    resolve: 'gatsby-plugin-manifest',
-    options: {
-      "icon": "src/images/icon.png"
-    }
-  }, "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "images",
-      "path": "./src/images/"
+  plugins: [
+    "gatsby-plugin-image", 
+    "gatsby-plugin-mdx",
+    "gatsby-plugin-sharp",
+    "gatsby-plugin-sitemap",
+    "gatsby-transformer-sharp",
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        "trackingId": "temp"
+      }
+    }, 
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/icon.png"
+      }
+    }, 
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        "name": `blog`,
+        "path": `${__dirname}/blog`
+      },
     },
-    __key: "images"
-  }, {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "pages",
-      "path": "./src/pages/"
-    },
-    __key: "pages"
-  }]
+  ]
 };
