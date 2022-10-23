@@ -5,9 +5,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-image", 
-    "gatsby-plugin-mdx",
     "gatsby-plugin-sharp",
-    "gatsby-plugin-sitemap",
     "gatsby-transformer-sharp",
     {
       resolve: 'gatsby-plugin-google-analytics',
@@ -20,7 +18,7 @@ module.exports = {
       options: {
         "icon": "src/images/icon.png"
       }
-    }, 
+    },  
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -28,5 +26,55 @@ module.exports = {
         "path": `${__dirname}/blog`
       },
     },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-table-of-contents`,
+            options: {
+              exclude: "Table of Contents",
+              tight: false,
+              ordered: false,
+              fromHeading: 1,
+              toHeading: 6,
+              className: "table-of-contents"
+            },
+          },
+          `gatsby-remark-autolink-headers`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-",
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: false,
+              noInlineHighlight: false,
+              languageExtensions: [
+                {
+                  language: "superscript",
+                  extend: "javascript",
+                  definition: {
+                    superscript_types: /(SuperType)/,
+                  },
+                  insertBefore: {
+                    function: {
+                      superscript_keywords: /(superif|superelse)/,
+                    },
+                  },
+                },
+              ],
+              prompt: {
+                user: "root",
+                host: "localhost",
+                global: false,
+              },
+              escapeEntities: {},
+            },
+          },
+        ],
+      },
+    },
   ]
 };
+

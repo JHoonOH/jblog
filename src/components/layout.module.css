@@ -7,13 +7,26 @@
   .heading {
     color: rebeccapurple;
   }
+
+  .nav {
+    overflow: auto;
+    height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
   .nav-links {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
   }
   .nav-link-item {
     padding-right: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.5625rem;
   }
   .nav-link-text {
     color: black;

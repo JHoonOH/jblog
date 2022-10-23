@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 
-const BlogPage = ({ data }) => {
+const MorePage = ({ data }) => {
   return (
     <Layout pageTitle="My Blog Posts">
       {
@@ -23,18 +23,12 @@ const BlogPage = ({ data }) => {
 }
 
 export const query = graphql`
-  query {
-    allMdx(
-      sort: {fields: frontmatter___date, order: DESC}
-      ) {
-      nodes {
-        frontmatter {
-          date(formatString: "MMMM D, YYYY")
-          title
-          category
-          slug
+query {
+    allMdx {
+      edges {
+        node {
+          id
         }
-        id
       }
     }
   }
@@ -43,4 +37,4 @@ export const query = graphql`
 
 export const Head = () => <Seo title="My Blog Posts" />
 
-export default BlogPage
+export default MorePage
