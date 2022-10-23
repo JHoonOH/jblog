@@ -23,12 +23,18 @@ const MorePage = ({ data }) => {
 }
 
 export const query = graphql`
-query {
-    allMdx {
-      edges {
-        node {
-          id
+  query {
+    allMdx(
+      sort: {fields: frontmatter___date, order: DESC}
+      ) {
+      nodes {
+        frontmatter {
+          date(formatString: "MMMM D, YYYY")
+          title
+          category
+          slug
         }
+        id
       }
     }
   }
