@@ -1,27 +1,28 @@
 import * as React from 'react'
+import { useLocation } from '@reach/router';
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 
 const MorePost = ({ data }) => {
+    const location = useLocation();
+    console.log(location);
+    let [bk, more, file] = location.pathname.split('/');
 
-let [bk, more, file] = window.location.pathname.split('/');
-console.log(file);
-
-const query = useStaticQuery(graphql`
-  query {
-    allMdx {
-      nodes {
-        frontmatter {
-          category
-          directory
-          slug
-          title
+    const query = useStaticQuery(graphql`
+    query {
+        allMdx {
+        nodes {
+            frontmatter {
+            category
+            directory
+            slug
+            title
+            }
         }
-      }
+        }
     }
-  }
-`)
+    `)
 
   return (
     <Layout pageTitle="My Blog Posts">
