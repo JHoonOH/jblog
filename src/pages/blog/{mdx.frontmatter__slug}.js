@@ -12,12 +12,12 @@ const BlogPost = ({ data, children }) => {
   )
 }
 
-
 export const query = graphql`
   query($id: String) {
     mdx(id: {eq: $id}) {
       frontmatter {
         title
+        slug
         date(formatString: "MMMM DD, YYYY")
       }
     }

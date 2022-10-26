@@ -1,0 +1,49 @@
+
+.post-list-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-card-box {
+    min-height: 150px;
+    width: 100%;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding : 15px;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 5px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-title{
+    font-size:18px;
+    font-weight: 600;
+    color: #000;
+}
+
+.post-category {
+    font-size:15px;
+    color: #a8a8a8;
+}
+
+.post-card:hover .post-title{
+    text-decoration: underline;
+}
+
+.post-content{
+    color: #000;
+}
+
+
+
+ 

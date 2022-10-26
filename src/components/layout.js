@@ -1,15 +1,20 @@
 import * as React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import {
+  wrapper,
+  leftMenu,
   container,
+  rightMenu,
+  dirLinkText,
+  dirLinkItem,
+  cateLinks,
+  cateLinkItem,
+  cateLinkText,
   nav,
   navLinks,
-  navLinkItem,
-  navLinkText,
-  siteTitle,
 } from './layout.module.css'
 
-const Layout = ({ pageTitle, children }) => {
+const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query {
       allMdx {
@@ -26,60 +31,38 @@ const Layout = ({ pageTitle, children }) => {
   `)
 
   return (
-    <div>
-      <div>
+    <div className={wrapper}>
+      <div className={leftMenu}>
         <nav className={nav}>
           <ul className={navLinks}>
             {
               data.allMdx.group.map(node => (
-                <li className={navLinkItem} key={node.fieldValue}>
-              <Link to={`/more/${node.fieldValue}`} className={navLinkText}>
-                {node.fieldValue} ({node.totalCount})
+                <li className={dirLinkItem} key={node.fieldValue}>
+              <Link to={`/more/${node.fieldValue}`} className={dirLinkText}>
+                {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
               </Link>
-              <ul className={navLinks}>
+              <ul className={cateLinks}>
               {node.group.map(node => (
-              <li className={navLinkItem} key={node.fieldValue}>
-                <Link to={`/more/${node.fieldValue}`} className={navLinkText}>
-                {node.fieldValue} ({node.totalCount})
+              <li className={cateLinkItem} key={node.fieldValue}>
+                <Link to={`/more/${node.fieldValue}`} className={cateLinkText}>
+                {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
                </Link>
               </li>))}
               </ul>
             </li>
               ))
             }
-            {/* <li className={navLinkItem}>
-              <Link to="/" className={navLinkText}>
-                Home
-              </Link>
-            </li>
-            <li className={navLinkItem}>
-              <Link to="/about" className={navLinkText}>
-                About
-              </Link>
-            </li>
-            <li className={navLinkItem}>
-              <Link to="/blog" className={navLinkText}>
-                Blog
-              </Link>
-                <ul>
-                  <li>1</li>
-                  <li>2</li>
-                  <li>3</li>
-                </ul>
-            </li> */}
           </ul>
         </nav>
       </div>
       <div className={container}>
-        <header className={siteTitle}>{pageTitle}</header>
+        {/* <header className={siteTitle}>{pageTitle}</header> */}
         <main>
           {children}
         </main>
       </div>
-      <div>
-
+      <div className={rightMenu}>
       </div>
-
     </div>
   )
 }
