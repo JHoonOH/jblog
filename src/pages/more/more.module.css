@@ -1,9 +1,17 @@
 
+.page-info {
+    font-size: 20px;
+    margin-block-start: 3em;
+    margin-block-end: 2em;
+}
+
 .post-list-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 1em;
 }
 
 .post-card-box {
@@ -20,7 +28,7 @@
     border-radius: 5px;
 }
 
-.info {
+.post-info {
     display: flex;
     justify-content: space-between;
 }
@@ -44,6 +52,11 @@
     color: #000;
 }
 
+.post-date {
+    color: #6c757d;
+    font-size: 12px;
+    font-weight: 400;
+}
 
 
  

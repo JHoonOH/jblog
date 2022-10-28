@@ -1,0 +1,34 @@
+.content {
+    margin-block-start: 5em;
+    margin-block-end: 5em;
+}
+.post-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    margin-block-end: 3em;
+}
+
+.link-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.link-item {
+    color: #000;
+    text-decoration: none;
+    margin-block-end: 1em;
+    margin-inline-end: 1em;
+}
+
+.link-item:hover {
+    color: rgb(197, 4, 45);
+    text-decoration: underline;
+}
+
+.post-title{
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+}
