@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { useLocation } from '@reach/router';
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 import {
@@ -16,31 +15,12 @@ import {
 } from './more.module.css'
 
 
-const MorePage = ({type}) => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMdx {
-        nodes {
-          frontmatter {
-            category
-            directory
-            slug
-            title
-            date(formatString: "M월 DD일, yyyy")
-          }
-          excerpt
-        }
-      }
-    }
-  `)
-
-  const location = useLocation();
-  let [bk, more, file] = location.pathname.split('/');
+const MorePage = ({data, pageContext}) => {
 
   return (
     <Layout>
       <div className={pageInfo}>
-        {file} 의 게시글 
+        {pageContext.group} 의 게시글 
       </div>
       {
         data.allMdx.nodes.map( (node) => {
@@ -59,20 +39,7 @@ const MorePage = ({type}) => {
               </div>
             </div>
           </article>);
-          
-          if(type == 'dir'){
-            if(node.frontmatter.directory != file){
-              return(null);
-            } else {
-              return content;
-            }
-          } else if(type == 'ctg'){
-            if(node.frontmatter.category != file){
-              return(null);
-            } else {
-              return content;
-            }
-          }
+          return content;
         })
       }
     </Layout>
@@ -80,5 +47,28 @@ const MorePage = ({type}) => {
 }
 
 export const Head = () => <Seo title="블로그 글 목록" />
+
+
+export const dataQuery = graphql`
+  query ($skip: Int, $directory: String, $category:String) {
+    allMdx (
+      sort: {order: DESC, fields: frontmatter___date}
+      filter: {frontmatter: {directory: {glob: $directory}, category: {glob: $category}}}
+      skip: $skip
+      limit: 3
+    ){
+      nodes {
+        frontmatter {
+          category
+          directory
+          slug
+          title
+          date(formatString: "M월 DD일, yyyy")
+        }
+        excerpt
+      }
+    }
+  }
+`
 
 export default MorePage

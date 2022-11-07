@@ -38,13 +38,13 @@ const Layout = ({ children }) => {
             {
               data.allMdx.group.map(node => (
                 <li className={dirLinkItem} key={node.fieldValue}>
-              <Link to={`/more/${node.fieldValue}`} className={dirLinkText}>
+              <Link to={`/more/${node.fieldValue}/1`} className={dirLinkText}>
                 {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
               </Link>
               <ul className={cateLinks}>
               {node.group.map(node => (
               <li className={cateLinkItem} key={node.fieldValue}>
-                <Link to={`/more/${node.fieldValue}`} className={cateLinkText}>
+                <Link to={`/more/${node.fieldValue}/1`} className={cateLinkText}>
                 {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
                </Link>
               </li>))}
