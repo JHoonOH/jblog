@@ -1,0 +1,94 @@
+---
+title: "React 시작하기 - 기본 문법과 JSX 활용"
+date: "2022-09-26"
+slug: "react2"
+category: "react"
+directory: "programming"
+---
+
+<br/>
+> react 시작하기전에 기존의 javascript와 어떤 차이점이 있는지 살펴보자
+
+<br/>
+## 1. 기존의 javascript 방식
+> 버튼을 클릭하면 숫자가 증가하는 간단한 스크립트
+
+```html
+<button id="btn">click here</button>
+````
+```javascript
+let counter = 0;
+const btn = document.getElementById('btn');
+btn.addEventListener('click', clickHere);
+function clickHere(){
+    console.log(++counter);
+}
+```
+
+기존의 html + javascript 구현 방식이다. 
+ 
+html로 페이지에 보여질 element를 선언하고 script에서 해당 element를 찾아 리스너를 등록하고
+
+사용자의 입력, 이벤트를 통해 다시 element를 제어하는 방식이다.
+
+관리포인트가 html과 script로 나뉘어져 있으며 매번 element를 탐색해야하는 번거로움이 있다. 
+
+<br/>
+## 2. React의 방식
+> React의 경우 이러한 번거로움을 주요 제어 로직이 javascript에 있음에 집중하여 코드를 javascript로 통합하였다.
+
+```javascript
+let counter = 0;
+const btn = React.createElement('button',{onClick:()=>{console.log(counter++)}},'click here');
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(btn);
+```
+
+btn이라는 element를 javascript를 통해 생성하고 이벤트와 html까지 한줄로 구현하였다.
+
+javascript에서 이루어지므로 별도로 element 탐색이 필요 없으며 이벤트도 element에 바로 포함되었다.
+
+btn을 javascript 객체로 바로 활용할 수 있는 것이다.
+
+보는이에 따라 다르겠지만 더 직관적이다.
+
+<br/>
+## 3. React에서의 JSX 활용
+
+javascript로 코드를 통합한 것은 그렇다쳐도 사실 element의 구조를 파악하는데는 dom 형태의 html구조가 더 직관적이다.
+
+따라서 react를 사용하면서 html을 활용하는 방법도 마련이 되어 있다.
+
+```jsx
+let counter = 0;
+
+const Btn = ()=>(<button onClick={() => console.log(++counter)}>click Here</button>);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(<Btn/>);
+```
+
+내부적으로는 위와 같이 createElement를 통해 element를 생성하도록 코드를 변환해준다.
+
+<br/>
+React는 이와 같이 Btn 이라는 객체, 컴포넌트를 생성한다.
+
+이를 event 처리가 가능한 완전한 element를 생성하여 html로 변환해준다.
+
+그리고 이 컴포넌트는 다음과 같이 직관적이고 쉽게 재사용이 가능하다.
+
+```jsx
+let counter = 0;
+
+const Btn = ()=>(<button onClick={() => console.log(++counter)}>click Here</button>);
+const Container = (
+  <div>
+    <Btn />
+    <Btn />
+    <Btn />
+  </div>
+);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(Container);
+```

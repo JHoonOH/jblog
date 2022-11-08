@@ -1,0 +1,140 @@
+---
+title: "React 시작하기 - state로 상태 관리하기"
+date: "2022-09-26"
+slug: "react3"
+category: "react"
+directory: "programming"
+---
+
+<br/>
+이전 글에서 버튼을 클릭하여 숫자를 카운트하는 코드를 기존 javascript에서 React로 변환해보았다.
+
+하지만 보여지는 페이지에선 아무런 변화도 없고 이러한 코드는 정적인 페이지로 javascript가 필요 없다.
+
+우리가 javascript 그리고, React를 사용하는 것은 사용자의 action에 의한 상호작용을 구현하기 위함이다.
+
+사용자의 조작에 의해 페이지는 변경되어야 하고 이를 상태를 변경한다고 하여 'state'를 관리한다고 한다.
+
+
+<br/>
+## 1. 기존의 javascript 방식
+> 버튼을 클릭하면 숫자를 증가시키고 그와 동시에 html을 변경하여 변경된 값을 업데이트 하는 기존의 javascript 방식.
+
+```html
+<button id="btn">click here</button>
+<span id="cnt">0</span>
+````
+```javascript
+let counter = 0;
+const btn = document.getElementById('btn');
+const cnt = document.getElementById('cnt');
+btn.addEventListener('click', clickHere);
+function clickHere(){
+    counter++;
+    cnt.innerText = counter;
+}
+```
+
+<br/>
+## 2. React rendering 방식
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+let counter = 1;
+const Container = () => {
+  const onClick = () => {
+    ++counter;
+    root.render(<Container />);
+    console.log(counter);
+  };
+
+  return <div>
+    <button onClick={onClick}>click Here</button>
+    <span>{counter}</span>
+  </div>
+};
+
+root.render(<Container />);
+```
+
+React로 변환한 코드이다. counter 를 통해 변수에 쉽게 접근할 수 있으므로 innerText를 통한 조작이 별도로 필요없다.
+
+onClick함수를 통해 클릭시 counter를 증가시키지만 root.render를 통해 컨테이너를 다시 렌더링 하지 않으면 counter 값만 증가될뿐
+
+사용자에게 보이는 화면은 처음에 렌더링된 container일 뿐이다.
+
+컨테이너를 다시 렌더링 하더라도 내부적으로 React가 이전 컴포넌트에서 변경된 부분만을 인식하기 때문에
+
+counter의 html코드만 변경이 되지만 모든 업데이트 코드에 root.render 코드를 남발하는건 비효율적이다.
+
+<br/>
+## 3. React Component 방식
+
+> 상태를 관리하기 위해 modifier를 통해 변수 각각의 상태를 조작할 수 있다.
+
+```jsx
+class Container extends Component{
+  state = {
+    counter:0
+  };
+
+  modify = n =>{
+    this.setState({
+      counter:n+1
+    })
+  }
+
+  render() {
+    const {counter} = this.state;
+    return (<div>
+      <button onClick={() => {this.modify(counter)}}>click Here</button>
+      <span>count : {counter}</span>
+    </div>);
+  }
+}
+```
+
+State를 관리할 수 있도록 Component를 상속받은 뒤 버튼을 클릭하면 modify를 통해 값을 전달한다.
+
+modify에서 전달 받은 값을 setState를 통해 변경하여 state가 관리될 수 있도록 하였다.
+
+<br/>
+## 4. React Hook 방식
+
+```jsx
+const Container = () => {
+  let [counter, setCounter] = React.useState(1);
+  
+  const onClick = () => {
+    //setCounter(++counter);
+    setCounter((current)=> current + 1);
+    console.log(counter);
+  };
+
+  return <div>
+    <button onClick={onClick}>click Here</button>
+    <span>count : {counter}</span>
+  </div>
+};
+```
+
+root를 다시 렌더링 하지 않고 useState 함수를 통해 배열을 리턴받는다.
+
+첫번째 요소로 counter 변수를 리턴받고 useState로 1이 전달 되었으므로 1로 초기화하고,
+
+두번째 요소로 변수를 제어할수 있는 함수를 리턴 받는다.
+ 
+<br/>
+해당 함수(setCounter)를 사용하여 변수의 state를 변경하면 react가 해당 state를 감지하여 컴포넌트를 다시 렌더링한다.
+
+(++counter처럼 변수를 직접 참조하여 값을 할당하는 것보다는 current argument를 전달받아 현재 값을 참조하도록 한다.)
+
+이때 컴포넌트인 div 내부 모두를 다시 렌더링 하도록 요청하지만
+
+react는 컴포넌트의 html을 모두 변경 하는것이 아닌 실질적으로 변경된 counter 부분만 변경하도록 동작한다.
+
+<br/>
+그리고 useState처럼, state를 함수형 으로 관리해줄 수 있게 만든 것을 Hook이라 한다.
+
+언뜻 보면 비슷해 보일 수 있지만 state로 관리되어지는 변수가 많아지거나 코드가 복잡해질 수록 훨씬 더 간결해지는 것을 볼 수 있다.

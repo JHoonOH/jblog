@@ -22,6 +22,7 @@
     "gatsby-plugin-mdx": "^4.3.0",
     "gatsby-plugin-sharp": "^4.24.0",
     "gatsby-remark-autolink-headers": "^5.24.0",
+    "gatsby-remark-copy-relative-linked-files": "^1.5.0",
     "gatsby-remark-prismjs": "^6.24.0",
     "gatsby-remark-table-of-contents": "^2.0.0",
     "gatsby-source-filesystem": "^4.24.0",

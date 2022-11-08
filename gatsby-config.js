@@ -35,6 +35,20 @@ module.exports = {
       options: {
         gatsbyRemarkPlugins: [
           {
+            resolve: 'gatsby-remark-copy-relative-linked-files',
+            options: {
+              // By default, `.md` is specified
+              // ignoreFileExtensions: ['.md']
+              //
+              // These files will not be copied
+              ignoreFileExtensions: ['.md', '.pdf', '.d.ts'],
+  
+              // Would generate file-1abcb33beeb811dca15f0ac3e47b88d9.pdf
+              filename: ({ hash, name, extension }) =>
+                `${name}-${hash}.${extension}`,
+            },
+          },
+          {
             resolve: `gatsby-remark-table-of-contents`,
             options: {
               exclude: "Table of Contents",
@@ -75,7 +89,7 @@ module.exports = {
               },
               escapeEntities: {},
             },
-          },
+          }
         ],
       },
     },

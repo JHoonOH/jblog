@@ -57,7 +57,7 @@ export const Head = () => <Seo title="블로그 글 목록" />
 export const pageQuery = graphql`
   query ($limit: Int, $directory: String, $category:String) {
     allMdx (
-      sort: {order: DESC, fields: frontmatter___date}
+      sort: {order: DESC, fields: frontmatter___slug}
       filter: {frontmatter: {directory: {glob: $directory}, category: {glob: $category}}}
       limit: $limit
     ){
