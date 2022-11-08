@@ -16,11 +16,13 @@ import {
 
 
 const MorePage = ({data, pageContext}) => {
+  console.log(data);
+  console.log(pageContext);
 
   return (
     <Layout>
       <div className={pageInfo}>
-        {pageContext.group} 의 게시글 
+        {pageContext.group!=null?(pageContext.group+ '의'):'모든'} 게시글 
       </div>
       {
         data.allMdx.nodes.map( (node) => {
@@ -30,7 +32,7 @@ const MorePage = ({data, pageContext}) => {
                 <Link to={`/blog/${node.frontmatter.slug}`} className={postCard}>
                   <div className={postInfo}>
                     <div className={postTitle}>{node.frontmatter.title}</div>
-                    <div className={postCategory}>{node.frontmatter.category.charAt(0).toUpperCase() + node.frontmatter.category.slice(1)}</div>
+                    <div className={postCategory}>{node.frontmatter.category!=null?node.frontmatter.category.charAt(0).toUpperCase() + node.frontmatter.category.slice(1):<></>}</div>
                   </div>
                   {/* <p>Posted: {node.frontmatter.date}</p> */}
                   <p className={postContent}>{node.excerpt}</p>

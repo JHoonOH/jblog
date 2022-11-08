@@ -6,14 +6,32 @@
 # directory: "디렉토리 명 입력 (상위 메뉴)"
 ---
 
-1. mdx 예시
+1. 헤더 예시 (2부터 사용할 것)
 
-# Headline 1.0.0
-## Headline 1.1.0
-### Headline 1.1.1
+# Headline1 1.0.0
+## Headline2 1.1.0
+### Headline3 1.1.1
 ## Headline 1.2.0
 
+2. 이탤릭
+*italic*
+_italic_
 
+3. bold
+**bold**
+__bold__
+
+
+4.link 
+[Text](url)
+
+5.인용구
+> blockquote
+
+6. 코드 설명
+`code`
+
+7. 자바스크립트 형식 및 강조표기
 ```javascript{1,4-6}
 // In your gatsby-config.js
 const kec = '123';
@@ -29,6 +47,8 @@ plugins: [
   }
 ]
 ```
+
+8.shell output line
 
 ```shell{outputLines: 2}
 $ git status
