@@ -1,7 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Hoon's J-blog`,
-    siteUrl: `https://www.yourdomain.tld`
+    description: `개발 관련 사항 블로그 입니다.`,
+    siteUrl: `https://jblog.gatsbyjs.io/`
   },
   flags: {
     DEV_SSR: true

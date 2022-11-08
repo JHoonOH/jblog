@@ -42,20 +42,24 @@ const MorePage = ({data, pageContext}) => {
           return content;
         })
       }
+      {
+        pageContext.totalPage !== pageContext.currentIndex?
+          <Link to={`/more/${pageContext.group}/${pageContext.currentIndex+1}`} className={postCard}>
+            <div >더 보기</div>
+          </Link>:<div></div>
+      }
     </Layout>
   )
 }
 
 export const Head = () => <Seo title="블로그 글 목록" />
 
-
-export const dataQuery = graphql`
-  query ($skip: Int, $directory: String, $category:String) {
+export const pageQuery = graphql`
+  query ($limit: Int, $directory: String, $category:String) {
     allMdx (
       sort: {order: DESC, fields: frontmatter___date}
       filter: {frontmatter: {directory: {glob: $directory}, category: {glob: $category}}}
-      skip: $skip
-      limit: 3
+      limit: $limit
     ){
       nodes {
         frontmatter {

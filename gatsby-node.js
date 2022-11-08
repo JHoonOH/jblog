@@ -35,10 +35,11 @@ exports.createPages = async ({actions, graphql, reporter}) => {
                 path: `/more/${dir.fieldValue}/${index}`,
                 component: ListTemplate,
                 context: {
+                    group: `${dir.fieldValue}`,
                     directory: `${dir.fieldValue}`,
-                    skip: pageSize * (index - 1),
-                    totalPage,
-                    currentPage: index
+                    limit: pageSize * index,
+                    totalPage: totalPage,
+                    currentIndex: index
                 }
             })
          }
@@ -51,10 +52,11 @@ exports.createPages = async ({actions, graphql, reporter}) => {
                 path: `/more/${category.fieldValue}/${index}`,
                 component: ListTemplate,
                 context: {
+                    group: `${category.fieldValue}`,
                     category: `${category.fieldValue}`,
-                    skip: pageSize * (index - 1),
-                    totalPage,
-                    currentPage: index
+                    limit: pageSize * index,
+                    totalPage: totalPage,
+                    currentIndex: index
                 }
             })
          }

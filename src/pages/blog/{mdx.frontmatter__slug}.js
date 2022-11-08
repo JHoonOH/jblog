@@ -16,10 +16,10 @@ const BlogPost = ({ data, children }) => {
       <div className={content}>
         <div className={postInfo}>
           <div className={linkInfo}>
-            <Link className={linkItem} to={`/more/${data.mdx.frontmatter.directory}`}>
+            <Link className={linkItem} to={`/more/${data.mdx.frontmatter.directory}/1`}>
               {data.mdx.frontmatter.directory}
             </Link>
-            <Link className={linkItem} to={`/more/${data.mdx.frontmatter.category}`}>
+            <Link className={linkItem} to={`/more/${data.mdx.frontmatter.category}/1`}>
               {data.mdx.frontmatter.category}
             </Link>
           </div>
