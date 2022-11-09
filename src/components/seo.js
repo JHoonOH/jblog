@@ -14,7 +14,9 @@ const Seo = ({ title, description, pathname, children}) => {
   return (
   <>
     <title>{title} | {defaultTitle}</title>
+    <meta name="title" content={seo.title} />
     <meta name="description" content={seo.description} />
+    <meta name="url" content={seo.url} />
     {children}
   </>
   )
