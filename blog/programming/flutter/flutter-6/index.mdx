@@ -58,7 +58,7 @@ crossAxisAlignment는 수직 정렬로 Column은 세로 배열이니 수직인 �
 crossAxisAlignment: 에서 CrossAxisAlignment. 를 타이핑하고 자동완성 되는 property를 확인 해보자
 
 <br/>
-![](./assets/3.png)
+![](./assets/4.png)
 
 <br/>
 그런데 이상하다...
@@ -77,7 +77,7 @@ Column은 단순히 위젯들을 세로로 정렬하는 것에 지나지 않는�
 다음은 Column이 차지하고 있는 영역이다.
 
 <br/>
-![](./assets/4.png)
+![](./assets/5.png)
 
 <br/>
 위젯들의 크기만큼만 할당된 상태에서 세로로 정렬하였고, 중앙으로 가로 정렬하였다.
@@ -91,7 +91,7 @@ Column은 단순히 위젯들을 세로로 정렬하는 것에 지나지 않는�
 Column의 속성을 확인해보자.
 
 <br/>
-![](./assets/5.png)
+![](./assets/6.png)
  
 <br/>
 Column은 크기를 지정해주는 속성이 따로 없는 것처럼 보인다. 어찌 해야할까?
@@ -99,7 +99,7 @@ Column은 크기를 지정해주는 속성이 따로 없는 것처럼 보인다.
 이때 사용하는 위젯이 Container 위젯이다.
 
 <br/>
-![](./assets/6.png)
+![](./assets/7.png)
 
 <br/>
 컨테이너는 말그대로 어떠한 위젯을 감싸주고 그것을 꾸며주는 역할을 하는 위젯으로, 굉장히 자주 사용되는 위젯이다.
@@ -138,7 +138,7 @@ double.infinity는 부모 위젯의 크기만큼,
 즉 할당할 수 있는 최대의 크기만큼의 너비를 지정한다.
 
 <br/>
-![](./assets/7.png)
+![](./assets/8.png)
 
 <br/>
 컨테이너가 너비를 모두 차지하게 되면서 정렬이 제대로 되고 있는 것을 확인할 수 있다.
@@ -146,7 +146,7 @@ double.infinity는 부모 위젯의 크기만큼,
 정렬은 해결이 되었는데... Column 위젯에서 세로로 위젯들이 무수히 나열되면 어떨까?
 
 <br/>
-![](./assets/8.png)
+![](./assets/9.png)
 
 <br/>
 Column은 높이를 할당 가능한 최대로 잡은 후 세로 배열을 하게 되는데
@@ -181,7 +181,7 @@ Container(
 ```
 
 <br/>
-![](./assets/9.png)
+![](./assets/10.png)
 
 ListView는 Column과 다르게 children 요소로 list를 받아 해당 요소들을 표기해주고
 

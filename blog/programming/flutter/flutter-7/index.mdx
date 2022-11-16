@@ -1,0 +1,137 @@
+---
+title: "Flutter 앱 AES, RSA 양방향 암호화"
+date: "2022-07-14"
+slug: "flutter-7"
+category: "flutter"
+directory: "programming"
+---
+
+<br/>
+> 문자열을 암호화하여 서버와 통신하기 위한 과정을 알아보자
+
+데이터를 그대로 노출시키지 않고 암호화 처리하기 위해서는 어떻게 해야할까
+
+흔히 말하는 단방향 암호화, 양방향 암호화의 차이는 무엇일까?
+
+
+<br/>
+*단방향 암호화*는 암호화하면 다시는 복호화 할 수 없는 암호화를 말한다.
+
+복호화가 필요 없는 데이터를 암호화할 때 사용하는데 예를 들어 사용자 인증처리시 비밀번호 암호화 등이 있다.
+
+비밀번호를 암호화 처리하면 로그인 할때는 입력한 비밀번호를 암호화하여 실제 비밀번호와 일치하는지 여부를 알아내 인증처리를 하게 되므로
+
+별도의 복호화 과정이 필요가 없다.
+
+<br/>
+*양방향 암호화*는 암호화 후 복호화를 통해 암호화 하기 전의 데이터로 변환이 가능한 암호화를 말한다.
+
+평문 그대로 노출되는 것을 방지하여 사용자, 제 3자에게는 공개되지 아니하며 각 시스템만이 알아야하는 데이터 등을 주고 받을때 사용한다.
+
+
+<br/>
+flutter 앱에서 양방향 암호화 처리를 진행해보자
+
+암호화 처리시 다음의 라이브러리를 사용한다.
+
+[패키지 Encrypt](https://pub.dev/packages/encrypt)
+
+<br/>
+## 1. AES 암호화
+
+AES 암호화는 대칭키를 사용하며 하나의 key를 사용해 암호화, 복호화를 진행한다.
+```dart
+import 'package:encrypt/encrypt.dart';
+
+final key = Key.fromUtf8('my 32 length key...');
+final iv = IV.fromLength(16);
+
+String encryptAES(String str) {
+  final encrypter = Encrypter(AES(key));
+  final encrypted = encrypter.encrypt(str, iv: iv);
+  
+  return encrypted.base64;
+}
+
+String decryptAES(String str) {
+  final encrypter = Encrypter(AES(key));
+  final decrypted = encrypter.decrypt(Encrypted.fromBase64(str), iv: iv);
+
+  return decrypted;
+}
+```
+encryptAES 함수를 사용하여 문자열을 암호화하고 base64로 인코딩하여 문자열로 변환한다.
+
+decryptAES 함수를 사용하여 base64 문자열을 암호화 객체로 변환하고 이를 복호화한다. 
+
+<br/>
+## 2. RSA 암호화
+
+RSA 암호화는 개인키와 공개키를 쌍으로 사용하며 공개키로 암호화를 하고 개인키로 복호화를 진행한다.
+
+말 그대로 공개키는 통신을 위해 공개된 키이므로 외부로 노출되더라도 복호화를 진행할 수 없다.
+
+단 개인키로 복호화가 가능하기 때문에 개인키는 노출되어서는 안된다.
+ 
+
+서버와의 통신을 위해 flutter 앱은 공개키로 암호화하여 데이터를 전송한다. 
+
+<br/>
+```yaml
+flutter:
+
+  assets:
+    - assets/images/
+    - assets/public.pem
+```
+위와 같이 파일 경로를 assets에 등록한다.
+
+<br/>
+```dart
+import 'dart:convert';
+import 'package:encrypt/encrypt.dart';
+import 'package:flutter/services.dart';
+import 'package:pointycastle/export.dart';
+
+Future<String> encryptRSA(String str) async {
+  final publicPem = await rootBundle.loadString('assets/public.pem');
+  final publicKey = RSAKeyParser().parse(publicPem) as RSAPublicKey;
+
+  final encrypter = Encrypter(RSA(publicKey: publicKey));
+  return encrypter.encrypt(str).base64;
+}
+```
+
+등록된 공개키를 불러온뒤 암호화하여 base64로 인코딩된 문자열을 전달한다.
+
+<br/>
+서버로부터 받은 문자열을 복호화하려면 어떻게 해야할까?
+
+RSA 암호화에서 일반적으로 공개키로 암호화, 개인키로 복호화 한다고 하였지만
+
+역으로 개인키로 암호화, 공개키로 복호화가 필요한 경우도 있다.
+
+서로 통신이 가능해야 하기 때문이다.
+ 
+<br/>
+개인키는 서버가 가지고 있으므로 서버에선 개인키로 암호화된 문자열을 전달하고 앱에서 공개키로 복호화한다.
+
+decrypt 함수는 복호화에 개인키가 필요하므로 다음의 함수를 사용한다.
+
+<br/>
+```dart
+import 'dart:convert';
+import 'package:encrypt/encrypt.dart';
+import 'package:flutter/services.dart';
+import 'package:pointycastle/export.dart';
+
+Future<String> decryptRSAbyPublicKey(String str) async {
+  final publicPem = await rootBundle.loadString('assets/public.pem');
+  final publicKey = RSAKeyParser().parse(publicPem) as RSAPublicKey;
+  AsymmetricBlockCipher cipher = PKCS1Encoding(RSAEngine());
+  cipher.init(false, PublicKeyParameter<RSAPublicKey>(publicKey));
+
+  return utf8.decode(cipher.process(Encrypted.fromBase64(str).bytes));
+}
+```
+
