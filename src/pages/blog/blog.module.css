@@ -2,11 +2,12 @@
     margin-block-start: 5em;
     margin-block-end: 5em;
 }
+
 .post-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
     margin-block-end: 3em;
 }
 
@@ -27,7 +28,7 @@
     text-decoration: underline;
 }
 
-.post-title{
+.post-title {
     font-size: 30px;
     font-weight: 600;
     color: #000;
