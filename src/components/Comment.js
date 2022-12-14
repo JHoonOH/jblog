@@ -1,7 +1,7 @@
 import React, { createRef, useEffect } from "react"
 
 
-const Comment = () => {
+const Comment = ({ repo }) => {
     const containerRef = createRef();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const Comment = () => {
             utterances.setAttribute(key, value)
         })
         containerRef.current.appendChild(utterances)
-    }, [repo, theme])
+    }, [repo])
 
     return <div id="comment" ref={containerRef} />
 }
