@@ -20,7 +20,7 @@ const MorePage = ({ data, pageContext }) => {
   return (
     <Layout>
       <div className={pageInfo}>
-        {pageContext.group!=null?(pageContext.group+ '의'):'모든'} 게시글 
+        {pageContext.group != null ? (pageContext.group + '의') : '모든'} 게시글
       </div>
       {
         data.allMdx.nodes.map((node) => {
@@ -30,7 +30,7 @@ const MorePage = ({ data, pageContext }) => {
                 <Link to={`/blog/${node.frontmatter.slug}`} className={postCard}>
                   <div className={postInfo}>
                     <div className={postTitle}>{node.frontmatter.title}</div>
-                    <div className={postCategory}>{node.frontmatter.category!=null?node.frontmatter.category.charAt(0).toUpperCase() + node.frontmatter.category.slice(1):<></>}</div>
+                    <div className={postCategory}>{node.frontmatter.category != null ? node.frontmatter.category.charAt(0).toUpperCase() + node.frontmatter.category.slice(1) : <></>}</div>
                   </div>
                   {/* <p>Posted: {node.frontmatter.date}</p> */}
                   <p className={postContent}>{node.excerpt}</p>
@@ -57,7 +57,7 @@ export const Head = () => <Seo title="블로그 글 목록" />
 export const pageQuery = graphql`
   query ($limit: Int, $directory: String, $category:String) {
     allMdx (
-      sort: {order: DESC, fields: frontmatter___slug}
+      sort: {order: DESC, fields: frontmatter___date}
       filter: {frontmatter: {directory: {glob: $directory}, category: {glob: $category}}}
       limit: $limit
     ){
