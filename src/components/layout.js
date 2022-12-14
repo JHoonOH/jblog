@@ -12,7 +12,7 @@ import {
   cateLinkText,
   nav,
   navLinks,
-} from './layout.module.css'
+} from './Layout.module.css'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -38,18 +38,18 @@ const Layout = ({ children }) => {
             {
               data.allMdx.group.map(node => (
                 <li className={dirLinkItem} key={node.fieldValue}>
-              <Link to={`/more/${node.fieldValue}/1`} className={dirLinkText}>
-                {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
-              </Link>
-              <ul className={cateLinks}>
-              {node.group.map(node => (
-              <li className={cateLinkItem} key={node.fieldValue}>
-                <Link to={`/more/${node.fieldValue}/1`} className={cateLinkText}>
-                {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
-               </Link>
-              </li>))}
-              </ul>
-            </li>
+                  <Link to={`/more/${node.fieldValue}/1`} className={dirLinkText}>
+                    {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
+                  </Link>
+                  <ul className={cateLinks}>
+                    {node.group.map(node => (
+                      <li className={cateLinkItem} key={node.fieldValue}>
+                        <Link to={`/more/${node.fieldValue}/1`} className={cateLinkText}>
+                          {node.fieldValue.charAt(0).toUpperCase() + node.fieldValue.slice(1)} ({node.totalCount})
+                        </Link>
+                      </li>))}
+                  </ul>
+                </li>
               ))
             }
           </ul>
@@ -60,6 +60,9 @@ const Layout = ({ children }) => {
         <main>
           {children}
         </main>
+        <footer>
+          <Comment repo="JHoonOH/jblog" />
+        </footer>
       </div>
       <div className={rightMenu}>
       </div>
