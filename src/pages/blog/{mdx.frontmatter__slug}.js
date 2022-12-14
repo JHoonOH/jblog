@@ -9,6 +9,7 @@ import {
   postInfo,
   postTitle
 } from './blog.module.css'
+import Comment from '../../components/Comment'
 
 const BlogPost = ({ data, children }) => {
   return (
@@ -29,6 +30,9 @@ const BlogPost = ({ data, children }) => {
         <div>
           {children}
         </div>
+        <footer>
+          <Comment repo="JHoonOH/jblog" />
+        </footer>
       </div>
     </Layout>
   )

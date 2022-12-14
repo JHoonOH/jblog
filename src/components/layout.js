@@ -60,9 +60,6 @@ const Layout = ({ children }) => {
         <main>
           {children}
         </main>
-        <footer>
-          <Comment repo="JHoonOH/jblog" />
-        </footer>
       </div>
       <div className={rightMenu}>
       </div>

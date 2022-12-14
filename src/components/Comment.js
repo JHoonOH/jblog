@@ -1,7 +1,9 @@
 import React, { createRef, useEffect } from "react"
 
-export default function Comment({ repo }) {
-    const containerRef = createRef()
+
+const Comment = () => {
+    const containerRef = createRef();
+
     useEffect(() => {
         const utterances = document.createElement("script")
         const attributes = {
@@ -18,5 +20,8 @@ export default function Comment({ repo }) {
         })
         containerRef.current.appendChild(utterances)
     }, [repo, theme])
+
     return <div id="comment" ref={containerRef} />
 }
+
+export default Comment
