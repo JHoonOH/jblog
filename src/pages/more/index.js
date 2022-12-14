@@ -15,9 +15,7 @@ import {
 } from './more.module.css'
 
 
-const MorePage = ({data, pageContext}) => {
-  console.log(data);
-  console.log(pageContext);
+const MorePage = ({ data, pageContext }) => {
 
   return (
     <Layout>
@@ -25,7 +23,7 @@ const MorePage = ({data, pageContext}) => {
         {pageContext.group!=null?(pageContext.group+ '의'):'모든'} 게시글 
       </div>
       {
-        data.allMdx.nodes.map( (node) => {
+        data.allMdx.nodes.map((node) => {
           const content = (<article key={node.frontmatter.slug}>
             <div className={postListBox}>
               <div className={postCardBox}>
@@ -45,10 +43,10 @@ const MorePage = ({data, pageContext}) => {
         })
       }
       {
-        pageContext.totalPage !== pageContext.currentIndex?
-          <Link to={`/more/${pageContext.group}/${pageContext.currentIndex+1}`} className={postCard}>
+        pageContext.totalPage !== pageContext.currentIndex ?
+          <Link to={`/more/${pageContext.group}/${pageContext.currentIndex + 1}`} className={postCard}>
             <div >더 보기</div>
-          </Link>:<div></div>
+          </Link> : <div></div>
       }
     </Layout>
   )
